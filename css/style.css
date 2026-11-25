@@ -38,6 +38,11 @@ button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 background-image:linear-gradient(to right,transparent calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% + .5px),transparent calc(50% + .5px)),linear-gradient(to bottom,transparent calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% + .5px),transparent calc(50% + .5px))}
 .cell .q{line-height:1;white-space:nowrap;position:relative}
 .unit{font-size:13px;color:var(--mute)}
+.mean{display:block;font:400 14px "Zen Kaku Gothic New",sans-serif;color:var(--mute);margin-top:4px}
+.q-mean{font-size:18px;font-weight:700;color:var(--ink);margin:0;text-align:center}
+.q-mean:empty{display:none}
+.opt.right .mean{color:#fff}
+.opt.wrong .mean{color:var(--red)}
 .ask{font-size:20px;font-weight:700;margin:0 0 14px}
 .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .opt{position:relative;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;min-height:84px;padding:12px 14px 12px 40px;font-size:clamp(24px,3vw,32px);cursor:pointer;text-align:center;transition:border-color .15s,transform .15s}
@@ -57,6 +62,7 @@ background-image:linear-gradient(to right,transparent calc(50% - .5px),color-mix
 .miss{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;list-style:none;padding:0;margin:16px auto 0;max-width:760px}
 .miss li{border:1.5px solid var(--line);border-radius:10px;padding:8px 14px;font-size:22px}
 .miss li span{font-size:16px;color:var(--mute);margin-left:8px}
+.miss li .mean{font-style:normal;font-size:13px;margin-top:2px}
 .hint{font-size:13px;color:var(--mute);margin-top:26px}
 [hidden]{display:none!important}
 @media(max-width:700px){.quiz{grid-template-columns:minmax(0,1fr)}:root{--cell:clamp(180px,62vw,260px)}.ask{text-align:center}}

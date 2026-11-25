@@ -23,6 +23,7 @@ function render() {
   const w = deck[idx]; locked = false;
   const q = mode === "kanji" ? w.k : w.r;
   $("q").textContent = q; $("q").style.fontSize = fit(q);
+  $("q-mean").textContent = mode === "kanji" ? meaning(w.k) : "";
   $("q-unit").textContent = "Unidades " + w.u;
   $("ask").textContent = mode === "kanji" ? "Qual é a leitura em hiragana?" : "Qual é o kanji?";
   const opts = mode === "kanji" ? readingOptions(w) : kanjiOptions(w);
@@ -32,6 +33,7 @@ function render() {
     b.className = "opt jp"; b.dataset.v = o;
     const sm = document.createElement("small"); sm.textContent = i + 1;
     b.append(sm, document.createTextNode(o));
+    if (mode === "kana") { const m = document.createElement("span"); m.className = "mean"; m.textContent = meaning(o); b.append(m); }
     b.addEventListener("click", () => answer(b));
     box.append(b);
   });
@@ -50,7 +52,7 @@ function answer(b) {
   if (hit) ok++; else { ng++; b.classList.add("wrong"); missed.push(w); }
   const fb = $("fb");
   fb.className = "fb " + (hit ? "ok" : "ng");
-  fb.textContent = (hit ? "Certo! " : "Errou — ") + `${w.k} = ${w.r}`;
+  fb.textContent = (hit ? "Certo! " : "Errou — ") + `${w.k} = ${w.r} (${meaning(w.k)})`;
   idx++; updateScore();
   timer = setTimeout(() => idx < deck.length ? render() : finish(), hit ? 800 : 1700);
 }
@@ -63,7 +65,8 @@ function finish() {
   $("e-list").innerHTML = "";
   for (const w of missed) {
     const li = document.createElement("li"); li.className = "jp"; li.textContent = w.k;
-    const s = document.createElement("span"); s.textContent = w.r; li.append(s); $("e-list").append(li);
+    const s = document.createElement("span"); s.textContent = w.r; li.append(s);
+    const m = document.createElement("em"); m.className = "mean"; m.textContent = meaning(w.k); li.append(m); $("e-list").append(li);
   }
 }
 function setMode(m) {

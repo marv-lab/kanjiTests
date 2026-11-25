@@ -41,17 +41,27 @@ O placar não é salvo: ao recarregar a página, o teste recomeça.
 
 | Arquivo | Função |
 |---|---|
-| `index.html` | Página do teste, usa os arquivos de `css/` e `js/` |
+| `kanji.html` | Página do teste (fonte), usa os arquivos de `css/` e `js/` |
 | `css/style.css` | Estilos |
 | `js/data.js` | Vocabulário das unidades e leituras alternativas válidas |
 | `js/options.js` | Geração das alternativas erradas (leituras e kanjis parecidos) |
 | `js/app.js` | Estado do teste, placar e interface |
+| `index.html` | Versão minificada para publicar, usa os arquivos `.min` |
+| `css/style.min.css` / `js/kanji.min.js` | CSS e JS minificados (os três scripts juntos, na ordem certa) |
+
+Para publicar são necessários só `index.html`, `css/style.min.css` e `js/kanji.min.js`.
 
 Os scripts precisam ser carregados nessa ordem (`data.js`, `options.js`, `app.js`), porque cada um usa o que o anterior define.
 
 ## Desenvolvimento
 
-Edite os arquivos e abra o `index.html` direto no navegador para testar.
+Edite sempre `kanji.html`, `css/style.css` e os arquivos de `js/`, e abra o `kanji.html` para testar. Depois gere de novo os arquivos minificados:
+
+```sh
+npx terser js/data.js js/options.js js/app.js --compress --mangle -o js/kanji.min.js
+npx clean-css-cli -o css/style.min.css css/style.css
+sed -e '/src="js\/data.js"\|src="js\/options.js"/d' -e 's#src="js/app.js"#src="js/kanji.min.js"#' -e 's#href="css/style.css"#href="css/style.min.css"#' kanji.html | npx html-minifier-terser --collapse-whitespace --remove-comments --collapse-boolean-attributes -o index.html
+```
 
 Para acrescentar palavras, edite o objeto `RAW` em `js/data.js`. Cada unidade é uma linha com pares `kanji:leitura` separados por espaço. Se a palavra tiver outras leituras válidas, acrescente em `ALT`, para que elas não apareçam como alternativa errada.
 
