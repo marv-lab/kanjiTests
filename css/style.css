@@ -1,0 +1,64 @@
+/* VOICE: calm, focused drill, like a teacher's worksheet
+   IDEA: genkō-yōshi practice sheet with hanko stamps for the score
+   PICTURE: the question written large inside a 田-grid practice square
+   COLOUR and TYPE: white paper, sumi ink, ai-indigo support, hanko red accent; Klee One (textbook hand) + Zen Kaku Gothic New
+   LAYOUT: title, mode + unit controls, scoreboard, square beside four answers; stacks on phones */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#121317);--ink:light-dark(#1b1b1f,#f1efe9);--mute:light-dark(#5d5e66,#a7a8b1);
+--line:light-dark(#e4e2dc,#2c2e36);--red:light-dark(#d7263d,#ff5d70);--ind:light-dark(#23395b,#93b4ff);
+--indbg:light-dark(#23395b,#2a4170);--card:light-dark(#ffffff,#181a20);--soft:light-dark(#f4f3ef,#1d1f26);
+--cell:clamp(200px,34vw,300px)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(20px,3.5vw,44px) max(5vw,16px);max-width:1100px;margin:0 auto}
+.jp{font-family:"Klee One","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:600}
+h1{font-size:clamp(28px,4vw,40px);line-height:1.05;margin:0 0 6px;text-wrap:balance;font-weight:900}
+.sub{color:var(--mute);margin:0 0 22px}
+.controls{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-bottom:22px}
+.seg{display:flex;border:2px solid var(--ink);border-radius:12px;overflow:hidden}
+.seg button{border:0;background:transparent;color:var(--ink);padding:10px 16px;min-height:44px;font:inherit;font-weight:700;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;min-height:44px;font:inherit;font-size:15px;cursor:pointer}
+.chips button[aria-pressed=true]{border-color:var(--ind);background:var(--indbg);color:#fff}
+button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.score{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;padding:14px 0;border-block:1px solid var(--line);margin-bottom:26px}
+.stamp{display:flex;align-items:center;gap:10px}
+.stamp i{font-style:normal;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-size:22px;border:2.5px solid currentColor;transform:rotate(-8deg)}
+.stamp.ok{color:var(--ind)}.stamp.ng{color:var(--red)}
+.stamp b{font-size:30px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.stamp span{font-size:14px;color:var(--mute)}
+.prog{flex:1 1 180px;display:flex;align-items:center;gap:10px;color:var(--mute);font-size:14px;white-space:nowrap}
+.bar{flex:1;height:6px;background:var(--soft);border-radius:3px;overflow:hidden}
+.bar div{height:100%;background:var(--ink);width:0;transition:width .3s}
+.quiz{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
+.cellwrap{display:grid;justify-items:center;gap:10px}
+.cell{width:var(--cell);height:var(--cell);border:2px solid var(--red);position:relative;display:grid;place-items:center;background:var(--card);
+background-image:linear-gradient(to right,transparent calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% + .5px),transparent calc(50% + .5px)),linear-gradient(to bottom,transparent calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% + .5px),transparent calc(50% + .5px))}
+.cell .q{line-height:1;white-space:nowrap;position:relative}
+.unit{font-size:13px;color:var(--mute)}
+.ask{font-size:20px;font-weight:700;margin:0 0 14px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.opt{position:relative;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;min-height:84px;padding:12px 14px 12px 40px;font-size:clamp(24px,3vw,32px);cursor:pointer;text-align:center;transition:border-color .15s,transform .15s}
+.opt:hover:not(:disabled){border-color:var(--ink);transform:translateY(-2px)}
+.opt small{position:absolute;left:12px;top:10px;font:700 13px "Zen Kaku Gothic New",sans-serif;color:var(--mute)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--indbg);border-color:var(--indbg);color:#fff}.opt.right small{color:#fff}
+.opt.wrong{border-color:var(--red);color:var(--red);text-decoration:line-through 2px}
+.fb{min-height:30px;margin-top:14px;font-weight:700}
+.fb.ok{color:var(--ind)}.fb.ng{color:var(--red)}
+.end{text-align:center;padding:10px 0 30px}
+.end .big{font-size:clamp(56px,10vw,96px);font-weight:900;line-height:1}
+.end p{color:var(--mute)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:20px 0}
+.btn{border:2px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 20px;min-height:44px;font:inherit;font-weight:700;cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink)}
+.miss{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;list-style:none;padding:0;margin:16px auto 0;max-width:760px}
+.miss li{border:1.5px solid var(--line);border-radius:10px;padding:8px 14px;font-size:22px}
+.miss li span{font-size:16px;color:var(--mute);margin-left:8px}
+.hint{font-size:13px;color:var(--mute);margin-top:26px}
+[hidden]{display:none!important}
+@media(max-width:700px){.quiz{grid-template-columns:minmax(0,1fr)}:root{--cell:clamp(180px,62vw,260px)}.ask{text-align:center}}
+@media(max-width:380px){.opt{min-height:72px;padding-left:30px}.opt small{left:9px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
