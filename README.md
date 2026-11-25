@@ -15,11 +15,12 @@ As alternativas erradas não são sorteadas ao acaso: elas imitam os erros que s
    - **Teste de kanji:** aparece a palavra em kanji e você escolhe a leitura em hiragana.
    - **Teste de hiragana:** aparece a leitura em hiragana e você escolhe o kanji.
 3. Escolha as **unidades**: **Todas** ou um bloco (1–5, 6–10, 11–15, 16–20). As palavras vêm embaralhadas.
-4. Clique na alternativa certa ou use as teclas `1` a `4`.
+4. Se quiser, ligue **Mostrar tradução** para ver o significado em português embaixo de cada kanji. A escolha fica salva no navegador.
+5. Clique na alternativa certa ou use as teclas `1` a `4`.
    - Se acertar, a alternativa fica azul e o app passa para a próxima palavra.
    - Se errar, sua escolha fica riscada em vermelho, a certa é destacada e a resposta aparece embaixo.
-5. A parte de cima mostra acertos (正), erros (誤) e o progresso no teste.
-6. No fim aparecem o percentual de acertos e a lista das palavras que você errou, com a leitura. **Treinar só os erros** faz um novo teste só com elas, e **Recomeçar** repete o teste inteiro.
+6. A parte de cima mostra acertos (正), erros (誤) e o progresso no teste.
+7. No fim aparecem o percentual de acertos e a lista das palavras que você errou, com a leitura. **Treinar só os erros** faz um novo teste só com elas, e **Recomeçar** repete o teste inteiro.
 
 Leituras alternativas válidas (por exemplo, し e よ para 四, ou にち para 日) nunca aparecem como alternativa errada.
 

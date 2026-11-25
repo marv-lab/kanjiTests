@@ -22,6 +22,13 @@ h1{font-size:clamp(28px,4vw,40px);line-height:1.05;margin:0 0 6px;text-wrap:bala
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips button{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 14px;min-height:44px;font:inherit;font-size:15px;cursor:pointer}
 .chips button[aria-pressed=true]{border-color:var(--ind);background:var(--indbg);color:#fff}
+.side{position:relative}
+.switch{position:absolute;bottom:calc(100% + 6px);left:0;display:inline-flex;align-items:center;gap:10px;border:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;font-weight:700;min-height:32px;padding:0 4px;cursor:pointer}
+.switch .track{position:relative;width:44px;height:26px;border-radius:13px;background:var(--line);transition:background .2s;flex:none}
+.switch .track::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--card);box-shadow:0 1px 3px rgb(0 0 0/.3);transition:transform .2s}
+.switch[aria-checked=true] .track{background:var(--indbg)}
+.switch[aria-checked=true] .track::after{transform:translateX(18px)}
+body:not(.show-mean) .mean{visibility:hidden}
 button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 .score{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;padding:14px 0;border-block:1px solid var(--line);margin-bottom:26px}
 .stamp{display:flex;align-items:center;gap:10px}
@@ -32,7 +39,7 @@ button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
 .prog{flex:1 1 180px;display:flex;align-items:center;gap:10px;color:var(--mute);font-size:14px;white-space:nowrap}
 .bar{flex:1;height:6px;background:var(--soft);border-radius:3px;overflow:hidden}
 .bar div{height:100%;background:var(--ink);width:0;transition:width .3s}
-.quiz{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
+.quiz{padding-top:24px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
 .cellwrap{display:grid;justify-items:center;gap:10px}
 .cell{width:var(--cell);height:var(--cell);border:2px solid var(--red);position:relative;display:grid;place-items:center;background:var(--card);
 background-image:linear-gradient(to right,transparent calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% + .5px),transparent calc(50% + .5px)),linear-gradient(to bottom,transparent calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% - .5px),color-mix(in srgb,var(--red) 35%,transparent) calc(50% + .5px),transparent calc(50% + .5px))}
@@ -42,6 +49,7 @@ background-image:linear-gradient(to right,transparent calc(50% - .5px),color-mix
 .q-mean{font-size:18px;font-weight:700;color:var(--ink);margin:0;text-align:center}
 .q-mean:empty{display:none}
 .opt.right .mean{color:#fff}
+.fb .fbm{display:inline;font:inherit;color:inherit;margin:0}
 .opt.wrong .mean{color:var(--red)}
 .ask{font-size:20px;font-weight:700;margin:0 0 14px}
 .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -65,6 +73,6 @@ background-image:linear-gradient(to right,transparent calc(50% - .5px),color-mix
 .miss li .mean{font-style:normal;font-size:13px;margin-top:2px}
 .hint{font-size:13px;color:var(--mute);margin-top:26px}
 [hidden]{display:none!important}
-@media(max-width:700px){.quiz{grid-template-columns:minmax(0,1fr)}:root{--cell:clamp(180px,62vw,260px)}.ask{text-align:center}}
+@media(max-width:700px){.quiz{padding-top:0;grid-template-columns:minmax(0,1fr)}:root{--cell:clamp(180px,62vw,260px)}.ask{text-align:center}.switch{position:static;display:flex;margin:0 auto 8px}}
 @media(max-width:380px){.opt{min-height:72px;padding-left:30px}.opt small{left:9px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}

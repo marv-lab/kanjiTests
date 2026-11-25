@@ -6,8 +6,8 @@ const UNITS = ["Todas", ...Object.keys(RAW)];
 $("units").innerHTML = UNITS.map(u => `<button data-u="${u}" aria-pressed="${u === unit}">${u === "Todas" ? "Todas" : "Unid. " + u}</button>`).join("");
 
 function wordsFor(u) {
-  const list = u === "Todas" ? WORDS : WORDS.filter(w => w.u === u);
-  return [...new Map(list.map(w => [w.k, w])).values()];
+  // Como no livro: 80 itens, incluindo as palavras que se repetem entre os testes
+  return u === "Todas" ? WORDS.slice() : WORDS.filter(w => w.u === u);
 }
 function start(list) {
   clearTimeout(timer);
@@ -52,7 +52,8 @@ function answer(b) {
   if (hit) ok++; else { ng++; b.classList.add("wrong"); missed.push(w); }
   const fb = $("fb");
   fb.className = "fb " + (hit ? "ok" : "ng");
-  fb.textContent = (hit ? "Certo! " : "Errou — ") + `${w.k} = ${w.r} (${meaning(w.k)})`;
+  fb.textContent = (hit ? "Certo! " : "Errou — ") + `${w.k} = ${w.r}`;
+  const fm = document.createElement("span"); fm.className = "mean fbm"; fm.textContent = ` (${meaning(w.k)})`; fb.append(fm);
   idx++; updateScore();
   timer = setTimeout(() => idx < deck.length ? render() : finish(), hit ? 800 : 1700);
 }
@@ -75,6 +76,15 @@ function setMode(m) {
   $("m-kana").setAttribute("aria-pressed", m === "kana");
   start(wordsFor(unit));
 }
+// Liga e desliga as traduções (lembra a escolha neste navegador)
+function setMean(on) {
+  $("t-mean").setAttribute("aria-checked", on);
+  document.body.classList.toggle("show-mean", on);
+  try { localStorage.setItem("kanji-mean", on ? "1" : "0"); } catch {}
+}
+$("t-mean").addEventListener("click", () => setMean($("t-mean").getAttribute("aria-checked") !== "true"));
+let savedMean = false; try { savedMean = localStorage.getItem("kanji-mean") === "1"; } catch {}
+setMean(savedMean);
 $("m-kanji").addEventListener("click", () => setMode("kanji"));
 $("m-kana").addEventListener("click", () => setMode("kana"));
 $("units").addEventListener("click", e => {
